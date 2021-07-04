@@ -1,0 +1,188 @@
+
+show databases; (muestra bases de datos)
+
+drop database 'nombre_base_datos'; (elimina la base de datos nombrada)
+
+create database 'nombre_base_datos';  (crea base de datos)
+
+use 'nombre_base_datos';  (para utilizar base de datos y su contenido)
+
+create table 'nombre_tabla'(valor1, valor2, valor3,...); (crea una tabla con los valores asignados)
+
+insert into 'nombre_tabla' values(); (agrega valores a la tabla)
+
+insert into 'nombre_tabla'(x1, x2, x3); (agrega los valores a la tabla que le pasemos)
+
+select * from 'nombre_tabla'; (nos muestra la tabla)
+
+select x1, x2 from 'nombre_tabla'; (nos muestra solo los valores que le pidamos)
+
+Condicion where(cuando)
+select * from 'nombre_tabla' where x1 = 'y';
+Operadores
+=  __ <>(distinto) __  > __  < __ >= __ <=
+
+
+delete from 'nombre_tabla' where x1 = y;  (elimina esa fila)
+update 'nombre_tabla' x1 = y where x2 = y2; (actualiza un dato ejemplo edad, cuando el otro tambien sea correcto)
+
+drop/create database if exists/if not exists 'nombre_base_datos'
+
+create table if not exists 'nombre_tabla'(
+id int(11) auto_increment,  (le damos un id a cada fila y sera incremental)
+producto varchar(50),
+descripcion text,
+precio float(11,2),
+primary key(id)        (asignamos id a primary key)
+);
+
+
+Indices:
+primary key(id)
+index 'nombre' (campo)
+unique 'nombre' (campo que no se puede repetir)
+drop index 'nombre' on 'nombre tabla'; (borrar por el nombre)
+create index 'nombre' on 'nombre tabla' (campo); (crear indice fuera de la tabla)
+create unique index 'nombre' on 'nombre tabla' (campo); (crear indice fuera de la tabla que no se repite)
+
+Alter Table:
+alter table 'nombre tabla' add 'nombre campo' 'valor'; (agregar campo y valor a la tabla)
+alter table 'nombre tabla' drop 'nombre campo', drop 'nombre campo'; (eliminar campo de una tabla, se borra 1 o mas segun campos que especifiquemos)
+
+Modify:
+alter table 'nombre tabla' modify 'nombre campo' valor(); (modifica segun el valor que pasemos)
+
+Change:
+alter table 'nombre tabla' change 'nombre campo' 'nuevo nombre campo' valor(); (modifica el nombre segun el valor que pasemos)
+
+
+Agregar y eliminar clave primaria:
+Agregar:
+alter table 'nombre tabla' add primary key(id);
+alter table 'nombre tabla' modify id int unsigned auto_increment not null;
+
+Eliminar:
+alter table 'nombre tabla' modify id int unsigned;
+alter table 'nombre tabla' drop primary key;
+
+
+Agregar indices con alter table add-drop:
+alter table 'nombre tabla' add index 'nombre' (campo1, campo2);
+alter table 'nombre tabla' drop index 'nombre';
+
+Renombrar tabla:
+alter table 'nombre tabla' rename 'nuevo nombre';
+rename table 'nombre tabla' to 'nuevo nombre';
+
+
+Intercambiar nombre de dos tablas:
+rename table 'nombre primera tabla' to 'nombre auxiliar', 'nombre segunda tabla' to 'nombre primera tabla', 'nombre auxiliar' to 'nombre segunda tabla';
+
+
+Tipos de datos:
+Mas comunes = (int,float,varchar,text)
+
+fecha y hora: 
+date aaaa-mm-dd
+datetime aaaa-mm-dd / hh:mm:ss
+
+
+Columnas calculadas
+
+select .x., .x1., .x2. from tabla;
+select .x., .x1*x2. from tabla;  (calcula dos dos valores de una tabla)
+select .x., .x1., .x2-(x2*0.1) from tabla; (calcula en el ejemplo el 10%)
+
+concat().... concatena, une strings
+concat_ws()... separa con lo que le pidamos, ejemplo /,:,;, etc
+length().... longitud, cuenta espacios en blanco
+left()... longitud, comenzando desde la izquierda (podemos pedir la longitud que nos va a devolver ",x");
+right()... mismo anterior, inverso en sentido.
+ltrim()... quita espacios del lado derecho   ('    h   '); devuelve ('h    ')
+rtrim()... mismo anterior, quita espacios del lado inverso
+trim()... quita el espacio en blanco antes y desp del texto
+replace()... retorna la cadena con el remplazo seleccionado  ('xxx.udemy.com','x','w');
+repeat()... repite determinada cantidad de veces ('hola', 5);
+reverse()... reescribe de derecha a qizquierda
+lower()... reproduce todo en minuscula
+lcase()... mismo anterior
+upper()... reproduce todo en mayuscula
+ucase()... mismo anterior
+
+Funciones matematicas:
+ceiling()... redondea el float hacia arriba
+floor()... redondea el float hacia abajo
+mod()... devulve el resto de la division
+power()... eleva un numero a x potencia se define con numero y potencia separado por ,
+round()... redondea hacia abajo o arriba segun el valor del decimal
+
+Order by...(ordena segun el valor que le pasemos)
+order by "valor" desc...(ordena de manera descendente)
+order by "valor" asc...(ordena de manera ascendente)
+
+And-Or-Not-Xor(operadores logicos)
+and = y...(dos condiciones deben cumplirse)
+or = y/o...(una u otra condicion debe cumplirse)
+xor = o...(una u otra condicion debe cumplirse)
+not = no...(cuando la condicion no se cumple)
+
+between-in(operadores relacionales)
+between = entre...(trae valores entre uno y otro)
+in = en...(trae un valor cuando uno esta en otro)
+
+Like-Not like-Regexp(patron de busqueda)
+like % %...(trae todos los valores que contengan la descripcion entre los %%)
+not like % %...(trae aquellos registros que no tenga el valor entre %%)
+un solo % despues del valor, trae o no registros que comiencen con ese valor
+regexp + "valor"...(trae registros que contengan el valor dado)
+regexp + "[valor]"...(solo trae registros que contengan el valor dado puede ser solo una letra,
+si en el valor establecemos regexp "[a-d]" trae aquellos que contengan de la letra 'a' a la 'd', 
+si ponemos regexp "^d" trae aquellos registros que empiecen con ese valor,
+si ponemos regexp "o.i" trae aquellos que contengan la 'o' un caracter y la 'i',
+si ponemos regexp "o..i" trae que contengas un caracter y otro 'o' y 'i',
+si ponemos regexp "a.*a" trae que contenga dos caracteres)
+
+
+Count(contar registros)
+select count(*) from 'valor'...(devuelve la cantidad de registros)
+
+Max-Min-Count-Avg(funciones de agrupamiento)
+sum...(devuelve la suma)
+max...(devuelve el valor maximo)
+min...(devuelve el valor minimo)
+avg...(promedio)
+
+Group by(agrupar registros)
+agrupa los registros para una consulta Ej:
+en una tabla de visitantes y sus ciudades
+select ciudad, count(*) from visitantes group by ciudad;
+
+Distinct(ovbia los registros duplicados)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
